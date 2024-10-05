@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Image Expert - Edit your images online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>* {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        background: #222222;
+        overflow: hidden;
+    }
+    
+    .square {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(#303030, #757575);
+        z-index: 2;
+    }
+    
+    .circle {
+        position: absolute;
+        top: 70%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background: #1cd99d;
+        border-radius: 50%;
+    }
+    
+    .triangle {
+        position: absolute;
+        top: 70%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background: #f5f5f5;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+
+ 
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Transform your images</a>
+          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li> -->
+              <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="false">About</a>
+              </li> -->
+            <!-- </ul> -->
+            <!-- <form class="d-flex flex-column" role="form">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                </div>
+                <button class="btn btn-primary mb-2" type="submit">Login</button>
+                <button class="btn btn-secondary" type="button">Sign Up</button>
+            </form> -->
+            
+          <!-- </div> -->
+        </div>
+      </nav>
+      <div class="square"></div>
+    <div class="circle"></div>
+    <div class="triangle"></div>
+
+    <div class="container animated-background">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success! </strong>{{ message| safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    
+      <div class="container">
+        <h1 class="fs-2 text" style="color: white;">Image Expert</h1>
+        <form action="/edit" method = post enctype ="multipart/form-data" >
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Select an image to edit</label>
+                <input type="file" name ="file" class="form-control" id="exampleFormControlInput1" placeholder="image">
+                </div>
+                <div class="mb-3">
+                <div class ="form-floating">
+                    <select name ="operation" class="form-select form-select-sm" id =" floating-select aria-label="Small select example">
+                        <option selected value="cjpg">Convert to Jpg</option>
+                        <option value="cpng">Covert to Png</option>
+                        <option value="cgray">Convert to cgray</option>
+                        <option value="cjpeg">Convert to Jpeg</option>
+                        <option value="reduce-half">Reduce dimensions by half</option>
+                        <option value="compress-90">Compress with 90 percent quality</option>
+                        <option value="compress-70">Compress with 70 percent quality</option>
+                        <option value="compress-50">Compress with 50 percent quality</option>
+                        <option value="compress-30">Compress with 30 percent quality</option>
+                      </select>
+                      <label for="floating-select">Choose an option</label>
+              </div>
+            </div>
+              <button type="submit" class="btn btn-success">Submit</button>
+              
+        </form>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
